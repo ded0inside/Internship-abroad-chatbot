@@ -1,22 +1,18 @@
-Doshi, Harsh 22203459
-
-Dulkin, Ilia 22112260
-
 # Internship Abroad Help Chatbot
 
-Link to project: [Internship Abroad Chatbot](https://mygit.th-deg.de/id05260/test-project)
+Link to project: [Internship Abroad Chatbot](https://github.com/ded0inside/Internship-abroad-chatbot)
 
-Link to Wiki-Repository: [Chatbot Wiki](https://mygit.th-deg.de/id05260/test-project/-/wikis/home)
+Link to Wiki-Repository: [Chatbot Wiki](https://github.com/ded0inside/Internship-abroad-chatbot/wiki)
 # Project Description
 
 Title: Internship Abroad Help Chatbot
 
 Description:
-Our project is designed to help students of Deggendorf University with their questions related to Internships Abroad. 
+Project is designed to help students of Deggendorf University with their questions related to Internships Abroad. 
 
-We have identified 3 user personas, International Students, European Students and Older students. 
+3 user personas were identified: International Students, European Students and Older students. 
 
-They all have different requirements and questions, and our goal is to be able to help them as much as possible. to reduce the workload of Career-Service department of DIT.
+They all have different requirements and questions, and our the is to be able to help them as much as possible. It will reduce the workload of Career-Service department of DIT.
 
 # Prerequisites:
 | Name | Version |
@@ -205,20 +201,20 @@ Do you have some more questions regarding general information?
 # Implementation of the Requests
 
 ### Uses cases
-Uses cases were described before, but can also be found [here](https://mygit.th-deg.de/id05260/test-project/-/wikis/Key-Use-Cases).
+Uses cases were described before, but can also be found [here](https://github.com/ded0inside/Internship-abroad-chatbot/wiki/Key-Use-Cases).
 
 ### Personas
 Detailed information about personas can be founded in corresponding
-[Wiki page](https://mygit.th-deg.de/id05260/test-project/-/wikis/Personas)
+[Wiki page](https://github.com/ded0inside/Internship-abroad-chatbot/wiki/Personas)
 
 ### Example dialogs
-All example dialogs can be founded in corresponding [Wiki page](https://mygit.th-deg.de/id05260/test-project/-/wikis/Sample-Dialogs)
+All example dialogs can be founded in corresponding [Wiki page](https://github.com/ded0inside/Internship-abroad-chatbot/wiki/Sample-Dialogs)
 
 ### Dialog flow
-[Link to the dialog flow diagrams](https://mygit.th-deg.de/id05260/test-project/-/wikis/High-Level-Dialogue-Flow)
+[Link to the dialog flow diagrams](https://github.com/ded0inside/Internship-abroad-chatbot/wiki/Conversational-flow)
 
 ### domain.yml
-[Domain file](https://mygit.th-deg.de/id05260/test-project/-/blob/test_branch/domain.yml?ref_type=heads) has these main parts
+[Domain file](https://github.com/ded0inside/Internship-abroad-chatbot/blob/main/domain.yml) has these main parts
 - Intents which bot reactss on
 - Forms which have been used to collect info from user
 - Slots
@@ -261,12 +257,12 @@ Following slots have been used:
 We used 3 different typse of response required for a bot flexability.They are: conditional (e.g. coordinator email), response with buttons (e.g. use case choosing) and the regular one.
 
 ### nlu.yml
-[This file](https://mygit.th-deg.de/id05260/test-project/-/blob/test_branch/data/nlu.yml?ref_type=heads) contain possible user's inputs which groupped by topics (like greeting, affirming etc.).
+[This file](https://github.com/ded0inside/Internship-abroad-chatbot/blob/main/data/nlu.yml) contain possible user's inputs which groupped by topics (like greeting, affirming etc.).
 
 Two types of intents were used: usual one and regular expression. Regular expression was used to extract valid degree code. 
 
 ### stories.yml
-[This file](https://mygit.th-deg.de/id05260/test-project/-/blob/main/data/stories.yml?ref_type=heads)
+[This file](https://github.com/ded0inside/Internship-abroad-chatbot/blob/main/data/stories.yml)
  contains the main conversation flow of our bot. 
 In the start, we ask the user if they want to fill up a form to give us some information.
 Then, we display them the use cases.
@@ -274,11 +270,11 @@ After every subtopic question answer action, we ask the user if they have more q
 In case the user doesn't have any more questions, we initate the feedback form from the stories.
 
 ### rules.yml
-[This file](https://mygit.th-deg.de/id05260/test-project/-/blob/main/data/rules.yml?ref_type=heads) defines the rule for our chatbot, we have defined activation and deactivation rules for all of the forms here. \
+[This file](https://github.com/ded0inside/Internship-abroad-chatbot/blob/main/data/rules.yml) defines the rule for our chatbot, we have defined activation and deactivation rules for all of the forms here. \
 Additionally, we use the retrieval intents for "cv_resume_assistance" here.
 
 ### actions.py
-[This file](https://mygit.th-deg.de/id05260/test-project/-/blob/main/actions/actions.py?ref_type=heads) contains the form validation action and the action to reset all slots \
+[This file](https://github.com/ded0inside/Internship-abroad-chatbot/blob/main/actions/actions.py) contains the form validation action and the action to reset all slots \
 It also contains the methods to send an email via rasa.
 
 # Special Features
@@ -295,18 +291,22 @@ Here is a list of them:
 5) Ability to reset slots:
 - Users can reset all of the slots they filled, if they have filled them wrong or if they want.
 
-# Work Done
-Done by Harsh:
-* data/stories and data/rules
-* actions
+# Contributing
 
-Done by Ilia:
-* high level dialog flow
-* data/nlu
+We welcome contributions! Please follow these steps to contribute:
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature`)
+3. Make your changes
+4. Commit your changes (`git commit -am 'Add new feature'`)
+5. Push to the branch (`git push origin feature`)
+6. Create a new pull request
 
-Done by both of us:
-* personas
-* key use cases
-* sample dialogs
-* domain
+Please ensure your code follows our coding standards.
 
+# License
+
+This project is licensed under the [MIT License](https://opensource.org/license/mit).
+
+# Contact
+
+For questions or support, contact [ilia.dulkin@stud.th-deg.de](mailto:ilia.dulkin@stud.th-deg.de).
