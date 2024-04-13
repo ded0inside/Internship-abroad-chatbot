@@ -1,0 +1,318 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - Who are you?
+    - What is your name?
+
+- regex: find_degree_coordinator
+  examples: |
+    - \b([ABCEIKMT-Wabceikmt-w][ABDIKMNPSTWYabdikmnpstwy][AILNSWailnsw]?)|WyPsi
+
+- intent: find_degree_coordinator
+  examples: |
+    - Can you give me the email for AIN degree_program faculty?
+    - What is the email for WyPsi degree_program?
+    - i need my internship coordinator email
+    - i need my internship guidelines
+    - who is my coordinator?
+    - who can I email?
+
+- intent: ask_use_cases
+  examples: |
+    - What are your use cases?
+    - How can I use you?
+    - How can you help me?
+    - what is your use?
+    - how to use you?
+    - show me your use cases
+
+- intent: selected_general_information
+  examples: |
+    - I select general information
+    - can you give me some general information
+    - What are some general tips I should know
+    - can you give me some gen info?
+
+- intent: general_information_timing
+  examples: |
+    - What is the time of the internship?
+    - How long should the internship be?
+    - is 4 months long enough?
+    - What is the deadline for internship application?
+    - How long should be the internship
+
+- intent: general_information_overall
+  examples: |
+    - I want to know the process of the internship
+    - What is the overall process of the internship?
+
+# application process
+- intent: selected_application_process_guidance
+  examples: |
+    - I select application guidance
+    - can you tell me the application process?
+    - What is the application process?
+
+- intent: application_process_guidance_general_guidance
+  examples: |
+    - i need some general guidance
+    - give me internship checklist
+
+- intent: application_process_guidance_internship_management_system
+  examples: |
+    - give me a link to the internship management system
+    - internship management system
+    - internship portal
+
+- intent: selected_cv_assistance
+  examples: |
+    - I select cv assistance
+    - can you tell me the cv?
+    - how can you help me make a better cv?
+
+- intent: cv_resume_assistance_format
+  examples: |
+    - What should be the format of the cv?
+    - How can I make a cv?
+    - how can I format a cv?
+
+- intent: cv_resume_assistance_cv_structure
+  examples: |
+    - What is the general structure of the cv
+    - How to structure a cv?
+    - Can you tell me the cv layout?
+
+- intent: cv_resume_assistance_design_guidance
+  examples: |
+    - What is the design of a cv?
+    - how to design a cv?
+    - Can you give some design tips for the cv?
+
+- intent: cv_resume_assistance/ask_section_order
+  examples: |
+    - Should I follow a specific order for sections on my CV for international applications?
+    - what is the order for sections in cv?
+    - give me the section order for resume
+    - how to arrange a cv?
+    - how to order a cv?
+    - what to put in a cv first?
+
+- intent: cv_resume_assistance/ask_photo_inclusion
+  examples: |
+    - Should I include a photo on my resume international applications?
+    - Should I include a photo on my CV for international applications?
+    - do I need to add a photo on my resume?
+    - is a photo on a cv okay?
+    - can I put a photo on my cv?
+    - Is it customary to include a photo on a CV for international internships?
+    - Do I have to include a photo in the cv?
+    - is a photo really important in cv?
+    - what if I don't put a photo in my cv?
+
+- intent: cv_resume_assistance/ask_translate_resume
+  examples: |
+    - Should I translate my resume into the local language of the country I'm applying to?
+    - Should I translate my cv into the local language of the country I'm applying to?
+    - my resume is in english, is that okay?
+    - can my resume be in spanish?
+    - what if my resume is in german?
+    - Can i translate my resume?
+
+- intent: cv_resume_assistance/ask_resume_length
+  examples: |
+    - What's the ideal length for a CV when applying for internships abroad?
+    - How long should my cv be?
+    - my cv is 3 pages long, is that fine?
+    - Is there an ideal length for a CV when applying for internships abroad?
+
+- intent: cv_resume_assistance/ask_tailoring_process
+  examples: |
+    - What's the process for tailoring my CV for international applications?
+    - is tailoring really necessary?
+    - how can i tailor my cv?
+
+- intent: cv_resume_assistance/ask_adapt_skills
+  examples: |
+    - How can I adapt my skills section on my CV for international opportunities?
+    - Do I need to adapt my skills?
+    - what skills should I put on my resume?
+    - can I put any skill on my resume?
+
+
+- intent: cv_resume_assistance/ask_highlight_experience
+  examples: |
+     - How can I effectively highlight my experience for international internships on my CV?
+     - Can I mention my experience?
+     - Should I write about my experience?
+     - Can I include my previous experience?
+
+
+- intent: no_questions
+  examples: |
+    - I don't have any more questions
+    - I am done
+    - No more questions
+    - No more doubts
+    - That's all
+    - i'm done
+
+- intent: more_questions
+  examples: |
+    - I am not done
+    - I still have some questions
+    - I have more questions
+    - I want to ask something else
+    - Can I ask some more questions?
+    - I have some other questions
+
+- intent: email_writing
+  examples: |
+    - Can I write an email?
+    - How can I send an email?
+    - Can I ask some personal doubts?
+    - How to contact the international office?
+    - How can I contact the international office?
+
+# bot will ask user if they have any more questions after this intent
+- intent: acknowledge
+  examples: |
+    - ok
+    - okay
+    - cool
+    - thanks
+    - fine
+    - nice
+    - noice
+    - eh ok
+    - I understand
+    - I get it
+    - gotcha
+
+- intent: reset_form
+  examples: |
+    - I would like to reset the form
+    - I want to re-enter some values
+    - Can I change the form
+    - How to reset form?
+
+- intent: document_checklist
+  examples: |
+    - Can you provide a document checklist for internship applications?
+    - What documents do I need for a internship application?
+    - Give me an example of a document checklist for an internship application
+    - Show me how you assist with document checklists
+    - Create a document checklist for an internship application
+    - document checklist
+    - checklist
+
+- intent: visa_and_legal_requirements
+  examples: |
+    - Can you provide information on visa and legal requirements for international internships?
+    - Tell me about the visa requirements for an internship
+    - How can you help with visa and legal requirements?
+    - Give me an example of legal requirements for an internship abroad
+    - Create a checklist for visa and legal requirements for studying abroad
+    - visa and legal requirements
+    - visa requirements
+    - legal requirements
+    - visa checklist
+    - legal requirements checklist
+
+- intent: selected_eligibility_test
+  examples: |
+    - How can you assist with eligibility assessment?
+    - Can you check if I'm eligible for any internships?
+    - How do you assess eligibility for language exchange programs?
+    - Give me an example of eligibility assessment
+    - Assess if I'm eligible for AI-related internships
+    - eligibility assessment
+    - eligibility
+    - my eligibility

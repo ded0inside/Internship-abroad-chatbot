@@ -1,0 +1,89 @@
+version: "3.1"
+
+rules:
+
+- rule: ask user to fill form if start of conversation
+  steps:
+  - action: utter_ask_fill_form
+  - intent: affirm
+  - action: basic_information
+  - active_loop: basic_information
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+
+- rule: submit form
+  condition:
+  - active_loop: basic_information
+  steps:
+    - action: basic_information
+    - active_loop: null
+    - action: utter_submit
+    - action: utter_slots_values
+
+# for feedback form
+- rule: conversation ending
+  steps:
+    - intent: no_questions
+    - action: satisfaction_feedback
+    - active_loop: satisfaction_feedback
+
+# for submitting feedback
+- rule: user has completed feedback form
+  condition:
+    - active_loop: satisfaction_feedback
+  steps:
+    - action: satisfaction_feedback
+    - active_loop: null
+    - action: utter_feedback
+    - action: utter_goodbye
+
+# email writing form
+- rule: user wants to write email
+  steps:
+    - intent: email_writing
+    - action: write_email
+    - active_loop: write_email
+
+# after email submission
+- rule: user has written their email
+  condition:
+    - active_loop: write_email
+  steps:
+    - action: write_email
+    - active_loop: null
+    - action: utter_sent
+    - action: action_sent_email
+    - action: utter_more_questions
+
+# eligibility assessment
+- rule: user wants to write email
+  steps:
+    - intent: selected_eligibility_test
+    - action: eligibility_assessment_form
+    - active_loop: eligibility_assessment_form
+
+# after eligibility form submission
+- rule: user has filled out the eligibility form
+  condition:
+    - active_loop: eligibility_assessment_form
+  steps:
+    - action: eligibility_assessment_form
+    - active_loop: null
+    - action: utter_eligible
+    - action: utter_degree_coordinator_and_guidelines
+    - action: utter_more_questions
+
+- rule: user asks a questions related to cv assistance
+  steps:
+    - intent: cv_resume_assistance
+    - action: utter_cv_resume_assistance
+    - action: utter_more_questions

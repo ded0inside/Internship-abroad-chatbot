@@ -1,0 +1,769 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - find_degree_coordinator
+  - selected_general_information
+  - selected_cv_assistance
+  - selected_eligibility_test
+  - general_information_timing
+  - general_information_overall
+  - application_process_guidance_general_guidance
+  - application_process_guidance_internship_management_system
+  - no_questions
+  - more_questions
+  - ask_use_cases
+  - email_writing
+  - acknowledge
+  - selected_application_process_guidance
+  - cv_resume_assistance_format
+  - cv_resume_assistance_cv_structure
+  - cv_resume_assistance_design_guidance
+  - cv_resume_assistance
+  - reset_form
+  - document_checklist
+  - visa_and_legal_requirements
+
+forms:
+  basic_information:
+    required_slots:
+      - german
+      - old
+      - kids
+      - degree_program
+      - name
+      - student_email
+  eligibility_assessment_form:
+    required_slots:
+      - is_valid_semester
+      - has_enough_ects
+      - internship_duration
+  satisfaction_feedback:
+    required_slots:
+      - satisfaction
+      - give_feedback
+  write_email:
+    required_slots:
+      - subject
+      - body
+      - mnr_number
+
+
+slots:
+  german:
+    type: bool
+    mappings:
+    - type: from_intent
+      intent: affirm
+      value: true
+      conditions:
+        - active_loop: basic_information
+          requested_slot: german
+    - type: from_intent
+      intent: deny
+      value: false
+      conditions:
+        - active_loop: basic_information
+          requested_slot: german
+  old:
+    type: bool
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: basic_information
+            requested_slot: old
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: basic_information
+            requested_slot: old
+  kids:
+    type: bool
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: basic_information
+            requested_slot: kids
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: basic_information
+            requested_slot: kids
+  degree_program:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: basic_information
+            requested_slot: degree_program
+  name:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: basic_information
+            requested_slot: name
+  student_email:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: basic_information
+            requested_slot: student_email
+  satisfaction:
+    type: bool
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: satisfaction_feedback
+            requested_slot: satisfaction
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: satisfaction_feedback
+            requested_slot: satisfaction
+  is_valid_semester:
+    type: bool
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: eligibility_assessment_form
+            requested_slot: is_valid_semester
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: eligibility_assessment_form
+            requested_slot: is_valid_semester
+  has_enough_ects:
+    type: bool
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: eligibility_assessment_form
+            requested_slot: has_enough_ects
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: eligibility_assessment_form
+            requested_slot: has_enough_ects
+  internship_duration:
+    type: bool
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: eligibility_assessment_form
+            requested_slot: internship_duration
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: eligibility_assessment_form
+            requested_slot: internship_duration
+  give_feedback:
+    type: bool
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: satisfaction_feedback
+            requested_slot: give_feedback
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: satisfaction_feedback
+            requested_slot: give_feedback
+  subject:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: write_email
+            requested_slot: subject
+  body:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: write_email
+            requested_slot: body
+  mnr_number:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: write_email
+            requested_slot: mnr_number
+responses:
+  utter_greet:
+  - text: "Hey! I am Jarnathan.\n 
+          Here to help you with your internship abroad."
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  # conversation ending responses
+  utter_feedback:
+    - condition:
+        - type: slot
+          name: give_feedback
+          value: true
+      text: "Thank you for your time\n
+            You can email us the feedback at dithelp@gmail.com"
+    - text: "No worries!"
+
+  utter_goodbye:
+    - condition:
+        - type: slot
+          name: satisfaction
+          value: false
+      text: "Thank you for your time\n
+            I am extremely sorry that I could not help you better\n
+            Have a great day!"
+    - text: "Nice to hear that! Hope you have a great day!"
+
+  utter_iamabot:
+  - text: "I am Jarnathan, powered by Harsh, Ilia and Rasa."
+
+  utter_can_still_ask:
+    - text: "No worries! You can still ask your questions!\n
+            Although I won't be able to help you better."
+
+  # Questions for form: basic information
+  utter_ask_fill_form:
+    - text: "Would you like to answer some questions\n
+            so that we could help you better?"
+
+  utter_ask_german:
+    - text: "Are you a german/EU citizen?"
+
+  utter_ask_old:
+    - text: "Are you an older college student (25+)?"
+
+  utter_ask_kids:
+    - text: "Do you have kids?"
+
+  utter_ask_degree_program:
+    - text: "Please enter your degree program (Ex AIN)"
+
+  utter_ask_name:
+    - text: "What is your name? (Please enter name only!)"
+
+  utter_ask_student_email:
+    - text: "What is your student email? (Please enter email only!)"
+
+  #after form submission
+  utter_submit:
+    - text: "All done!"
+
+  utter_slots_values:
+    - text: "Here is your data\n:
+             Name: {name}\n
+             EU Citizen: {german}\n
+             Older college student: {old}\n
+             Degree Program: {degree_program}\n
+             Email: {student_email}\n
+             Is the above information correct?"
+      buttons:
+        - title: "Yes"
+          payload: '/ask_use_cases'
+        - title: "No"
+          payload: '/reset_form'
+
+  utter_degree_coordinator_and_guidelines:
+    - condition:
+        - type: slot
+          name: degree_program
+          value: BIW
+      text: "Email of {degree_program} internship coordinator: gerd.maurer@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_biw_2022.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: BMA
+      text: "Email of {degree_program} internship coordinator: gerd.maurer@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_bma_2022.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: UIW
+      text: "Email of {degree_program} internship coordinator: josef.langenecker@th-deg.de
+              {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_uiw_2022.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: AI
+      text: "Email of {degree_program} internship coordinator: udo.garmann@th-deg.de
+              {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_ai.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: IAS
+      text: "Email of {degree_program} internship coordinator: udo.garmann@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_ai.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: CY
+      text: "Email of {degree_program} internship coordinator: michael.heigl@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_cy_b.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: KI
+      text: "Email of {degree_program} internship coordinator: patrick.glauner@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_ki.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: WI
+      text: "Email of {degree_program} internship coordinator: stephan.scheuerer@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_wi-b.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: AIN
+      text: "Email of {degree_program} internship coordinator: patrick.glauner@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_ain.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: BWL
+      text: "Email of {degree_program} internship coordinator: juergen.sikorski@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_bwl.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: IM
+      text: "Email of {degree_program} internship coordinator: adrian.hubel@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_im.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: TM
+      text: "Email of {degree_program} internship coordinator: Waldemar.berg@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_tm.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: VWL
+      text: "Email of {degree_program} internship coordinator: marcus.dittrich@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_vwl.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: WyPsi
+      text: "Email of {degree_program} internship coordinator: marcus.dittrich@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_wypsi-b.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: ET
+      text: "Email of {degree_program} internship coordinator: detlef.brumbi@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_et_em_ab_20232.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: EM
+      text: "Email of {degree_program} internship coordinator: detlef.brumbi@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_et_em_ab_20232.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: MT
+      text: "Email of {degree_program} internship coordinator: jens.schanze@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_mt_ab_20232.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: MB
+      text: "Email of {degree_program} internship coordinator: martin.aust@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_mb.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: MK
+      text: "Email of {degree_program} internship coordinator: martin.aust@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_mk.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: TD
+      text: "Email of {degree_program} internship coordinator: martin.aust@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_td.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: ASW
+      text: "Email of {degree_program} internship coordinator: jens.martin@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_asw.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: INI
+      text: "Email of {degree_program} internship coordinator: oliver.neumann@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_ini.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: TP
+      text: "Email of {degree_program} internship coordinator: gerald.fuetterer@th-deg.de
+              {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_tp.pdf"
+
+    - condition:
+        - type: slot
+          name: degree_program
+          value: WIW
+      text: "Email of {degree_program} internship coordinator: oliver.neumann@th-deg.de
+                {degree_program} internship guidelines link: https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/richtlinien_wiw.pdf"
+
+    - text: "Unfortunately, I could not find the email for your specific program.\n
+             (Have you filled the form/entered the right value?)
+             Here is the link to the collection of all guidelines:\n
+             https://www.th-deg.de/en/students/documents#internship"
+
+  utter_use_cases:
+    - text: "Here are my use cases:"
+      buttons:
+        - title: "General Information"
+          payload: '/selected_general_information'
+        - title: "Eligibility assessment"
+          payload: "/selected_eligibility_test"
+        - title: "Application process guidance"
+          payload: "/selected_application_process_guidance"
+        - title: "CV Assistance"
+          payload: '/selected_cv_assistance'
+        - title: "Document checklist"
+          payload: "/document_checklist"
+        - title: "Visa and Legal requirements"
+          payload: "/visa_and_legal_requirements"
+        - title: "Who can I contact?"
+          payload: '/find_degree_coordinator'
+        - title: "Custom Email"
+          payload: '/email_writing'
+        - title: "Fill/Reset Form"
+          payload: '/reset_form'
+
+  # category: general information
+  utter_general_information_sub_questions:
+    - text: "Welcome to general information\n
+            You can type in your questions, or directly find an answer for the ones listed below\n"
+      buttons:
+        - title: "Timing"
+          payload: '/general_information_timing'
+        - title: "Overall Description"
+          payload: '/general_information_overall'
+        - title: "Back to Main Topics"
+          payload: '/ask_use_cases'
+
+  utter_general_information_timing:
+    - text: "Minimum internship duration in the training company must not be\n
+            less than 90 working days1 (18 full weeks). Public holidays, sick days, \n
+            any recreational leaves or any company holidays shall be excluded from this\n
+            minimum internship duration. You are responsible for ensuring that this\n
+            duration is complied with. Combined with the two block weeks of courses\n
+            accompanying the internship, this results in the required minimum internship\n
+            duration of 20 weeks."
+
+  utter_general_information_overall:
+    - text: "The practical semester at the Deggendorf Institute of Technology is carried out in companies\n
+            and enterprises in Germany or abroad, e.g. in industrial and commercial enterprises, banks, insurance \n
+            companies or public offices.\n\n
+            Further details (including the duration of the internship) can be found in the examination regulations of the DIT.\n
+            In addition to the usually 18 weeks of internship in a company, practical courses in the form of block courses\n
+            are held at the university (PLV).\n\n
+            General Information on how to prepare the compulsory internship for bachelor students can be found in the checklist below:\n
+            https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/Career-Service-Praktikum-Checkliste-2021-en.pdf"
+
+  utter_more_questions_general_information:
+    - text: "Do you have some more questions regarding general information?"
+      buttons:
+      - title: "Yes"
+        payload: '/selected_general_information'
+      - title: "Go back to main topics"
+        payload: '/ask_use_cases'
+      - title: "No more questions related to any topic"
+        payload: '/no_questions'
+
+  # category: Application process guidance
+  utter_application_process_guidance_sub_questions:
+    - text: "Here are the sub-questions:"
+      buttons:
+      - title: "Internship management system"
+        payload: '/application_process_guidance_internship_management_system'
+      - title: "General Guidance"
+        payload: '/application_process_guidance_general_guidance'
+      - title: "Back to Main Topics"
+        payload: '/ask_use_cases'
+
+  utter_application_process_guidance_internship_management_system:
+    - text: "Here is your internship management system: https://pmit-ext.th-deg.de/pv/
+           and instruction (only in German):\n 
+           https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/anleitung_praktikumsverwaltung.pdf"
+
+  utter_application_process_guidance_general_guidance:
+    - text: "Here is the link to the general internship checklist:\n
+     https://www.th-deg.de/Studierende/Antraege-und-Organisatorisches/Praxissemester/Career-Service-Praktikum-Checkliste-2021-en.pdf"
+
+  utter_more_questions_application_process_guidance:
+    - text: "Do you have some more questions regarding application process?"
+      buttons:
+        - title: "Yes"
+          payload: '/selected_application_process_guidance'
+        - title: "Go back to main topics"
+          payload: '/ask_use_cases'
+        - title: "No more questions related to any topic"
+          payload: '/no_questions'
+
+  # eligibility assessment form
+  utter_ask_is_valid_semester:
+    - text: "Have you in reached the 5th semester?"
+
+  utter_ask_has_enough_ects:
+    - text: "Do you have at least 60 ECTS?"
+
+  utter_ask_internship_duration:
+    - text: "Is your internship at least 3 months long?"
+
+  utter_eligible:
+    - condition:
+        - type: slot
+          name: is_valid_semester
+          value: true
+        - type: slot
+          name: has_enough_ects
+          value: true
+        - type: slot
+          name: internship_duration
+          value: true
+      text: "You are eligible for internship. Please contact your advisor or the career-service\n
+      if you have not done so already"
+    - text: "You are not eligible for internship, please contact your advisor for the next stepsff!"
+
+# category: Document Checklist
+# some changes remaining
+  utter_document_checklist:
+    - condition:
+        - type: slot
+          name: german
+          value: true
+        - type: slot
+          name: kids
+          value: true
+      text: "list with kids and eu citizen"
+    - condition:
+        - type: slot
+          name: german
+          value: false
+        - type: slot
+          name: kids
+          value: true
+      text: "list with kids and non-eu citizen"
+    - condition:
+        - type: slot
+          name: kids
+          value: false
+        - type: slot
+          name: german
+          value: true
+      text: "list with no kids and eu citizen"
+    - condition:
+        - type: slot
+          name: german
+          value: false
+        - type: slot
+          name: kids
+          value: false
+      text: "list with no kids and non-eu citizen"
+
+    - text: "General list of documents"
+
+  # category: Visa stuff
+  utter_visa_and_legal_requirements:
+    - condition:
+        - type: slot
+          name: german
+          value: true
+        - type: slot
+          name: kids
+          value: true
+      text: "list with kids and eu citizen"
+    - condition:
+        - type: slot
+          name: german
+          value: false
+        - type: slot
+          name: kids
+          value: true
+      text: "list with kids and non-eu citizen"
+    - condition:
+        - type: slot
+          name: kids
+          value: false
+        - type: slot
+          name: german
+          value: true
+      text: "list with no kids and eu citizen"
+    - condition:
+        - type: slot
+          name: german
+          value: false
+        - type: slot
+          name: kids
+          value: false
+      text: "list with no kids and non-eu citizen"
+
+    - text: "General list for visa requirements"
+
+# category: cv_assistance
+
+  utter_cv_assistance_sub_questions:
+    - text: "Here are some of the sub-questions you can ask:\n
+            Note: You can ask your own questions too!\n
+            This is, by no means, an exhaustive list"
+      buttons:
+        - title: "Formatting a cv"
+          payload: '/cv_resume_assistance_format'
+        - title: "CV structure"
+          payload: '/cv_resume_assistance_cv_structure'
+        - title: "Design Tip"
+          payload: '/cv_resume_assistance_design_guidance'
+        - title: "Back to Main Topics"
+          payload: '/ask_use_cases'
+  utter_cv_resume_assistance_format:
+    - text: "Use a clean, professional format. Consider a reverse-chronological layout highlighting relevant experiences and skills."
+
+  utter_cv_resume_assistance_cv_structure:
+    - text: "Try a clear, organized structure with sections for education, experience, skills, and additional relevant sections like language proficiency or certifications."
+
+  utter_cv_resume_assistance_design_guidance:
+    - text: "Keep it professional and neat. Use legible fonts, bullet points, and minimal colors to ensure readability."
+
+  utter_cv_resume_assistance/ask_section_order:
+    - text: "Start with personal information, followed by education, experience, skills, and any additional relevant sections, keeping the most important information upfront."
+
+  utter_cv_resume_assistance/ask_photo_inclusion:
+    - text: "Including a photo is standard in many countries, but research the cultural norms of the country where you're applying."
+
+  utter_cv_resume_assistance/ask_translate_resume:
+    - text: "Translating can be beneficial; ensure accuracy and clarity if you opt to translate."
+
+  utter_cv_resume_assistance/ask_resume_length:
+    - text: "Aim for a concise document, typically one or two pages for a resume and a detailed 
+             CV for longer-term internships or academic positions."
+
+  utter_cv_resume_assistance/ask_tailoring_process:
+    - text: "Tailoring involves aligning your skills and experiences with the requirements of the targeted country or organization. It starts with understanding their expectations."
+
+  utter_cv_resume_assistance/ask_adapt_skills:
+    - text: "Prioritize and highlight skills that are most relevant to the international job market or align with the specific internship requirements."
+
+  utter_cv_resume_assistance/ask_highlight_experience:
+    - condition:
+        - type: slot
+          name: old
+          value: true
+      text: "Since you are an older college student, you might have previous experience. Do mention that!"
+    - text: "Prioritize experiences relevant to the targeted industry or role. Use action verbs and quantify achievements when possible."
+
+  utter_more_questions_cv_assistance:
+    - text: "Do you have some more questions regarding cv?"
+      buttons:
+        - title: "Yes"
+          payload: '/selected_cv_assistance'
+        - title: "Go back to main topics"
+          payload: '/ask_use_cases'
+        - title: "No more questions related to any topic"
+          payload: '/no_questions'
+
+  utter_more_questions:
+    - text: "Do you have some more questions?"
+      buttons:
+        - title: "No"
+          payload: '/no_questions'
+        - title: "Yes"
+          payload: '/more_questions'
+
+  # conversation ending questions to user
+  utter_ask_satisfaction:
+    - text: "Are you satisfied with my answers?"
+
+  utter_ask_give_feedback:
+    - text: "Would you like to give us some feedback?"
+
+  # user wants to write email to the international office
+  utter_ask_subject:
+    - text: "Please enter the subject line of your email"
+
+  utter_ask_body:
+    - text: "Please enter your questions\n
+            Try to be as concise as possible!"
+
+  utter_ask_mnr_number:
+    - text: "Please enter your matriculation number"
+
+  utter_sent:
+    - text: "Sent! You shall here back from us within 5 business days\n
+            We look forward to helping you!"
+
+actions:
+  - action_reset_slots
+  - action_sent_email
+  - validate_basic_information
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

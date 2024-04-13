@@ -1,0 +1,100 @@
+version: "3.1"
+
+stories:
+
+- story: user decides to give us some information
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_ask_fill_form
+
+- story: user refuses to give information
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - action: utter_ask_fill_form
+    - intent: deny
+    - action: utter_can_still_ask
+    - action: utter_use_cases
+
+- story: user has put something wrong in the form and wants to fill it again
+  steps:
+    - intent: reset_form
+    - action: action_reset_slots
+    - action: utter_ask_fill_form
+
+- story: user wants to find their course coordinator
+  steps:
+    - intent: find_degree_coordinator
+    - action: utter_degree_coordinator_and_guidelines
+    - action: utter_more_questions
+
+- story: user wants to know our use cases
+  steps:
+    - intent: ask_use_cases
+    - action: utter_use_cases
+
+# same story for every case
+- story: user selects general information
+  steps:
+    - intent: selected_general_information
+    - action: utter_general_information_sub_questions
+    - intent: general_information_timing
+    - action: utter_general_information_timing
+    - action: utter_more_questions_general_information
+    - intent: general_information_overall
+    - action: utter_general_information_overall
+    - action: utter_more_questions_general_information
+
+# application process guidance
+- story: user selects application process guidance
+  steps:
+    - intent: selected_application_process_guidance
+    - action: utter_application_process_guidance_sub_questions
+    - intent: application_process_guidance_internship_management_system
+    - action: utter_application_process_guidance_internship_management_system
+    - action: utter_more_questions_application_process_guidance
+    - intent: application_process_guidance_general_guidance
+    - action: utter_application_process_guidance_general_guidance
+    - action: utter_more_questions_application_process_guidance
+
+# cv_assistance
+- story: user_selects_cv_assistance
+  steps:
+    - intent: selected_cv_assistance
+    - action: utter_cv_assistance_sub_questions
+    - intent: cv_resume_assistance_format
+    - action: utter_cv_resume_assistance_format
+    - action: utter_more_questions_cv_assistance
+    - intent: cv_resume_assistance_cv_structure
+    - action: utter_cv_resume_assistance_cv_structure
+    - action: utter_more_questions_cv_assistance
+    - intent: cv_resume_assistance_design_guidance
+    - action: utter_cv_resume_assistance_design_guidance
+    - action: utter_more_questions_cv_assistance
+
+# if the intent is no questions, we run the conversation ending form in rules
+# if user has more questions, we show them the use cases again
+- story: more questions
+  steps:
+    - intent: more_questions
+    - action: utter_use_cases
+
+- story: user acknowledges our answer
+  steps:
+    - intent: acknowledge
+    - action: utter_more_questions
+
+- story: user asks about visa requirements
+  steps:
+    - intent: document_checklist
+    - action: utter_document_checklist
+    - action: utter_more_questions
+
+- story: user asks about visa requirements
+  steps:
+    - intent: visa_and_legal_requirements
+    - action: utter_visa_and_legal_requirements
+    - action: utter_more_questions
+
+# forms for visa and eligibility
